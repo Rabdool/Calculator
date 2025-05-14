@@ -1,49 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="calc.css">
-       <title>Simple Calculator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="calc.css" />
+  <title>Simple Calculator</title>
 </head>
 <body>
-    <div class="container">
-        <div class="calculator">
-            <form>
-                <div class="display">
-                    <input type="text" name="display">
-                </div>
-                <div>
-                    <input type="button" value="AC" onclick="display.value = '' " class="operator">
-                    <input type="button" value="DE" onclick="display.value = display.value.toString().slice(0,-1)" class="operator">
-                    <input type="button" value="." onclick="display.value += '.' " class="operator">
-                    <input type="button" value="/" onclick="display.value += '/' " class="operators">
-                </div>
-                <div>
-                    <input type="button" value="7" onclick="display.value += '7' " class="numbers">
-                    <input type="button" value="8" onclick="display.value += '8' " class="numbers">
-                    <input type="button" value="9" onclick="display.value += '9' " class="numbers">
-                    <input type="button" value="*" onclick="display.value += '*' " class="operators">
-                </div>
-                <div>
-                    <input type="button" value="4" onclick="display.value += '4' " class="numbers">
-                    <input type="button" value="5" onclick="display.value += '5' " class="numbers">
-                    <input type="button" value="6" onclick="display.value += '6' " class="numbers">
-                    <input type="button" value="-" onclick="display.value += '-' " class="operators">
-                </div>
-                <div>
-                    <input type="button" value="1" onclick="display.value += '1' " class="numbers">
-                    <input type="button" value="2" onclick="display.value += '2' " class="numbers">
-                    <input type="button" value="3" onclick="display.value += '3' " class="numbers">
-                    <input type="button" value="+" onclick="display.value += '+' " class="operators">
-                </div>
-                <div>
-                    <input type="button" value="00" onclick="display.value += '00' " class="equals numbers">
-                    <input type="button" value="0" onclick="display.value += '0' " class="numbers">
-                    <input type="button" value="=" onclick="display.value = eval(display.value)" class="operators">
-                </div>
-            </form>
+  <div class="container">
+    <div class="calculator">
+      <form onsubmit="return false">
+        <div class="display">
+          <input type="text" id="display" readonly />
         </div>
+        <div>
+          <input type="button" value="AC" onclick="clearDisplay()" class="operator" />
+          <input type="button" value="DE" onclick="deleteLast()" class="operator" />
+          <input type="button" value="." onclick="appendValue('.')" class="operator" />
+          <input type="button" value="/" onclick="appendValue('/')" class="operators" />
+        </div>
+        <div>
+          <input type="button" value="7" onclick="appendValue('7')" class="numbers" />
+          <input type="button" value="8" onclick="appendValue('8')" class="numbers" />
+          <input type="button" value="9" onclick="appendValue('9')" class="numbers" />
+          <input type="button" value="*" onclick="appendValue('*')" class="operators" />
+        </div>
+        <div>
+          <input type="button" value="4" onclick="appendValue('4')" class="numbers" />
+          <input type="button" value="5" onclick="appendValue('5')" class="numbers" />
+          <input type="button" value="6" onclick="appendValue('6')" class="numbers" />
+          <input type="button" value="-" onclick="appendValue('-')" class="operators" />
+        </div>
+        <div>
+          <input type="button" value="1" onclick="appendValue('1')" class="numbers" />
+          <input type="button" value="2" onclick="appendValue('2')" class="numbers" />
+          <input type="button" value="3" onclick="appendValue('3')" class="numbers" />
+          <input type="button" value="+" onclick="appendValue('+')" class="operators" />
+        </div>
+        <div>
+          <input type="button" value="00" onclick="appendValue('00')" class="numbers" />
+          <input type="button" value="0" onclick="appendValue('0')" class="numbers" />
+          <input type="button" value="=" onclick="calculateResult()" class="operators" />
+        </div>
+      </form>
     </div>
-   </body>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function appendValue(val) {
+      display.value += val;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function deleteLast() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculateResult() {
+      try {
+        display.value = Function('"use strict"; return (' + display.value + ')')();
+      } catch (e) {
+        display.value = 'Error';
+      }
+    }
+  </script>
+</body>
 </html>

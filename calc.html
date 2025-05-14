@@ -2,49 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="calc.css" />
   <title>Simple Calculator</title>
-  <style>
-    .theme-toggle {
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: flex-end;
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .light-mode .calculator {
-      background: #f1f1f1;
-    }
-
-    .light-mode .calculator form input {
-      color: #000;
-    }
-
-    .light-mode form input.operator {
-      background-color: #ddd;
-      color: black;
-    }
-
-    .light-mode form input.operators {
-      background-color: #ff9500;
-      color: white;
-    }
-
-    .light-mode form input.numbers {
-      background-color: #ccc;
-      color: black;
-    }
-
-    .light-mode .theme-toggle {
-      color: black;
-    }
-
-    .light-mode body {
-      background: #fff;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
@@ -84,7 +44,7 @@
           <input type="button" value="+" onclick="appendValue('+')" class="operators" />
         </div>
         <div>
-          <input type="button" value="00" onclick="appendValue('00')" class="numbers" />
+          <input type="button" value="00" onclick="appendValue('00')" class="numbers equals" />
           <input type="button" value="0" onclick="appendValue('0')" class="numbers" />
           <input type="button" value="=" onclick="calculateResult()" class="operators" />
         </div>

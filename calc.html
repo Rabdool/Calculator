@@ -5,10 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="calc.css" />
   <title>Simple Calculator</title>
+  <style>
+    .theme-toggle {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: flex-end;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .light-mode .calculator {
+      background: #f1f1f1;
+    }
+
+    .light-mode .calculator form input {
+      color: #000;
+    }
+
+    .light-mode form input.operator {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .light-mode form input.operators {
+      background-color: #ff9500;
+      color: white;
+    }
+
+    .light-mode form input.numbers {
+      background-color: #ccc;
+      color: black;
+    }
+
+    .light-mode .theme-toggle {
+      color: black;
+    }
+
+    .light-mode body {
+      background: #fff;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <div class="calculator">
+      <div class="theme-toggle">
+        <label>
+          <input type="checkbox" id="themeSwitcher" />
+          Light Mode
+        </label>
+      </div>
       <form onsubmit="return false">
         <div class="display">
           <input type="text" id="display" readonly />
@@ -48,6 +94,7 @@
 
   <script>
     const display = document.getElementById('display');
+    const themeSwitcher = document.getElementById('themeSwitcher');
 
     function appendValue(val) {
       display.value += val;
@@ -68,6 +115,23 @@
         display.value = 'Error';
       }
     }
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.key >= '0' && e.key <= '9') || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
+        appendValue(e.key);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        calculateResult();
+      } else if (e.key === 'Backspace') {
+        deleteLast();
+      } else if (e.key === 'Escape') {
+        clearDisplay();
+      }
+    });
+
+    themeSwitcher.addEventListener('change', () => {
+      document.body.classList.toggle('light-mode');
+    });
   </script>
 </body>
 </html>
